@@ -5,7 +5,6 @@ import Classes.Tile;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -29,7 +28,9 @@ public class Controller {
                 array[i][j] = new GraphNode<Tile>(rect);
             }
             vbox1.getChildren().add(hbox);
+            //connectRectangles();
         }
+        connectRectangles();
     }
 
     public void connectRectangles() {
@@ -42,12 +43,12 @@ public class Controller {
     }
 
     public void bfs() {
-        connectRectangles();
+        //connectRectangles();
         Random rand = new Random();
-        int x1 = rand.nextInt(columns - 1);
-        int x2 = rand.nextInt(columns - 1);
-        int y1 = rand.nextInt(rows - 1);
-        int y2 = rand.nextInt(rows - 1);
+        int y1 = rand.nextInt(columns - 1);
+        int y2 = rand.nextInt(columns - 1);
+        int x1 = rand.nextInt(rows - 1);
+        int x2 = rand.nextInt(rows - 1);
         GraphNode<Tile> point1 = array[x1][y1];
         GraphNode<Tile> point2 = array[x2][y2];
         point1.data.setStartTile();
@@ -62,7 +63,7 @@ public class Controller {
                 for (int k = 0; k < rows; k++) {
                     if (graphNodeList.get(i).data.toString().equals(array[k][j].data.toString())) {
                         GraphNode<Tile> point = array[k][j];
-                        point.data.setTranverseTile();
+                        point.data.setBFSTransverseTile();
                         //array[j][k].data.;
                         //break;
                     }
@@ -73,12 +74,12 @@ public class Controller {
     }
 
     public void dfs() {
-        connectRectangles();
+        //connectRectangles();
         Random rand = new Random();
-        int x1 = rand.nextInt(columns - 1);
-        int x2 = rand.nextInt(columns - 1);
-        int y1 = rand.nextInt(rows - 1);
-        int y2 = rand.nextInt(rows - 1);
+        int y1 = rand.nextInt(columns - 1);
+        int y2 = rand.nextInt(columns - 1);
+        int x1 = rand.nextInt(rows - 1);
+        int x2 = rand.nextInt(rows - 1);
         GraphNode<Tile> point1 = array[x1][y1];
         GraphNode<Tile> point2 = array[x2][y2];
         System.out.println(point1.data.toString() + " - " + point1.adjList.size());
@@ -91,9 +92,8 @@ public class Controller {
                 for (int k = 0; k < rows; k++) {
                     if (graphNodeList.get(i).data.toString().equals(array[k][j].data.toString())) {
                         GraphNode<Tile> point = array[k][j];
-                        point.data.setTranverseTile();
-                        //array[j][k].data.;
-                        //break;
+                        point.data.setDFSTransverseTile(i);
+
                     }
                 }
             }

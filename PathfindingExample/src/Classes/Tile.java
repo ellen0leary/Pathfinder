@@ -5,24 +5,14 @@ import javafx.scene.shape.Rectangle;
 
 public class Tile extends Rectangle {
     private int x,y;
+    private boolean value;
     public Tile(int x, int y){
         super(40, 40, 40, 40);
         this.x = x;
         this.y = y;
+        this.value = true;
         setFill(Color.WHITE);
         setStroke(Color.BLACK);
-    }
-
-    public void setStartTile(){
-        setFill(Color.DARKVIOLET);
-    }
-
-    public void setFinishTile(){
-        setFill(Color.GREENYELLOW);
-    }
-
-    public void setTranverseTile(){
-        setFill(Color.CRIMSON);
     }
 
     public int getXValue() {
@@ -41,6 +31,10 @@ public class Tile extends Rectangle {
         this.y = y;
     }
 
+    public boolean getValue() { return value;}
+
+    public void setValue(boolean value) { this.value = value;}
+
     @Override
     public String toString() {
         return "Tile{" +
@@ -48,4 +42,16 @@ public class Tile extends Rectangle {
                 ", y=" + y +
                 '}';
     }
+
+    public void setStartTile(){ setFill(Color.DARKVIOLET);}
+
+    public void setFinishTile(){ setFill(Color.GREENYELLOW); }
+
+    public void setBFSTransverseTile(){ setFill(Color.CRIMSON); }
+
+    public void setDFSTransverseTile(int i){ setFill(Color.color(0.1*i,0.125*i,0.12*i));}
+
+    public void setDijkstraTransverseTile() { setFill(Color.CADETBLUE); }
+
+    public void setATransverseTile() { setFill(Color.ORANGERED); }
 }

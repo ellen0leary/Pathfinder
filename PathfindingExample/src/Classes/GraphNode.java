@@ -1,7 +1,6 @@
 package Classes;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class GraphNode<T> {
     public T data;
