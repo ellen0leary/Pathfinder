@@ -49,9 +49,19 @@ public class Tile extends Rectangle {
 
     public void setBFSTransverseTile(){ setFill(Color.CRIMSON); }
 
-    public void setDFSTransverseTile(int i){ setFill(Color.color(0.1*i,0.125*i,0.12*i));}
+    public void setDFSTransverseTile(int i){ setFill(Color.color(0.1*i,0.12*i,0.1*i));}
 
     public void setDijkstraTransverseTile() { setFill(Color.CADETBLUE); }
 
     public void setATransverseTile() { setFill(Color.ORANGERED); }
+
+    public void setBlankTile() {
+        setFill(Color.WHITE);
+        setValue(true);
+    }
+
+    public void setWallTile() {
+        setFill(Color.BLACK);
+        setValue(false);
+    }
 }

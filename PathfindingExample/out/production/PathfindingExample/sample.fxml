@@ -9,5 +9,8 @@
       <VBox fx:id="vbox1" layoutX="34.0" layoutY="14.0" prefHeight="200.0" prefWidth="100.0" />
       <Button layoutX="58.0" layoutY="499.0" mnemonicParsing="false" onAction="#bfs" text="bfs" />
       <Button layoutX="90.0" layoutY="499.0" mnemonicParsing="false" onAction="#dfs" text="dfs" />
+      <Button layoutX="474.0" layoutY="499.0" mnemonicParsing="false" onAction="#walls" text="Draw some walls" />
+      <Button layoutX="475.0" layoutY="524.0" mnemonicParsing="false" onAction="#resetWalls" text="I don't like them" />
+      <Button fx:id="clear" layoutX="475.0" layoutY="549.0" mnemonicParsing="false" text="Clear All Tiles" />
    </children>
 </AnchorPane>
