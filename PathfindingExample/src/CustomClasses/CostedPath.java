@@ -1,4 +1,4 @@
-package Classes;
+package CustomClasses;
 
 import java.util.ArrayList;
 import java.util.Collections;

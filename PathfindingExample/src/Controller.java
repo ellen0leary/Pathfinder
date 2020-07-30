@@ -1,6 +1,4 @@
-import Classes.Graph;
-import Classes.GraphNode;
-import Classes.Tile;
+import CustomClasses.*;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -17,19 +15,15 @@ public class Controller {
     Random rand = new Random();
 
     public void initialize() {
-        int location = 0;
         for (int i = 0; i < rows; i++) {
             HBox hbox = new HBox();
             for (int j = 0; j < columns; j++) {
                 Tile rect = new Tile(i, j);
                 hbox.getChildren().add(rect);
-                //list.add(new GraphNode<Tile>(rect));
-                location++;
                 array[i][j] = new GraphNode<Tile>(rect);
             }
             vbox1.getChildren().add(hbox);
         }
-        //connectRectangles();
     }
 
     public int randomXPoint(){
@@ -39,8 +33,8 @@ public class Controller {
     public int randomYPoint(){
         return rand.nextInt(columns - 1);
     }
+
     public void connectRectangles() {
-        //GraphNode<Tile> left = null, down = null;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 GraphNode<Tile> current = array[i][j];
@@ -113,7 +107,7 @@ public class Controller {
         System.out.println("-------------------");
     }
 
-    //public void dijkstra() { }
+    public void dijkstra() { }
 
     //public void aStar() { }
 
@@ -146,5 +140,4 @@ public class Controller {
             }
         }
     }
-
 }
