@@ -19,3 +19,8 @@ public class Main extends Application {
         launch(args);
     }
 }
+//take user point input
+//dij path
+    //connect rectangle
+    //get points
+    //
