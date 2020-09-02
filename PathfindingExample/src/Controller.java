@@ -131,7 +131,7 @@ public class Controller {
     public void dfs() {
         connectRectangles();
         findPoints();
-        List<GraphNode<?>> GraphNodeList = Graph.searchGraphDepthFirst(point1, null, point2.data);
+        List<GraphNode<?>> GraphNodeList = Graph.findPathDepthFirst(point1, null, point2.data);
         if (GraphNodeList != null) {
             for (int i = 1; i < GraphNodeList.size() - 1; i++) {
                 System.out.println(GraphNodeList.get(i).data.toString());
@@ -139,7 +139,7 @@ public class Controller {
                     for (int k = 0; k < rows; k++) {
                         if (GraphNodeList.get(i).data.toString().equals(array[k][j].data.toString())) {
                             GraphNode<Tile> point = array[k][j];
-                            point.data.setDFSTransverseTile(i);
+                            point.data.setDFSTransverseTile();
                             break;
                         }
                     }

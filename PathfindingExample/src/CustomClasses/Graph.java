@@ -31,19 +31,6 @@ public class Graph {
         return findPathBreadthFirst(agenda, encountered, lookingFor); //Tail call
     }
 
-    public static <T> GraphNode<?> searchGraphDepthFirst(GraphNode<?> from, List<GraphNode<?>> encountered, T lookingfor) {
-        if (from.data.equals(lookingfor)) return from;
-        if (encountered == null) encountered = new ArrayList<>(); //First node so create new (empty) encountered list
-        encountered.add(from);
-        for (GraphNode<?> adjNode : from.adjList)
-            if (!encountered.contains(adjNode)) {
-                GraphNode<?> result = searchGraphDepthFirst(adjNode, encountered, lookingfor);
-                if (result != null) return result;
-            }
-        return null;
-    }
-}
-/*
     public static <T> List<GraphNode<?>> findPathDepthFirst(GraphNode<?> from, List<GraphNode<?>> encountered, T lookingFor) {
         List<GraphNode<?>> result;
         if (from.data.equals(lookingFor)) {
@@ -64,4 +51,3 @@ public class Graph {
         return null;
     }
 }
-*/
