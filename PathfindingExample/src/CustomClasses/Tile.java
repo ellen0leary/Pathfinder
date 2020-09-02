@@ -34,7 +34,9 @@ public class Tile extends Rectangle {
 
     public boolean getValue() { return value;}
 
-    public void setDistance(int distance){ this.distance = distance;}
+    public void setDistance(int distance){
+        this.distance = distance;
+    }
 
     public int getDistance() { return distance; }
     public void setValue(boolean value) { this.value = value;}

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: edf6f9;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
@@ -20,8 +24,8 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Text>
-            <TextField prefHeight="25.0" prefWidth="58.0" promptText="X Point" />
-            <TextField prefHeight="25.0" prefWidth="68.0" promptText="Y Point" />
+            <TextField fx:id="startXPoint" prefHeight="25.0" prefWidth="58.0" promptText="X Point" />
+            <TextField fx:id="startYPoint" prefHeight="25.0" prefWidth="68.0" promptText="Y Point" />
          </children>
       </HBox>
       <HBox layoutX="19.0" layoutY="473.0" prefHeight="25.0" prefWidth="186.0">
@@ -31,9 +35,11 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Text>
-            <TextField prefHeight="25.0" prefWidth="56.0" promptText="X Point" />
-            <TextField prefHeight="25.0" prefWidth="65.0" promptText="Y Point" />
+            <TextField fx:id="endXPoint" prefHeight="25.0" prefWidth="56.0" promptText="X Point" />
+            <TextField fx:id="endYPoint" prefHeight="25.0" prefWidth="65.0" promptText="Y Point" />
          </children>
       </HBox>
+      <Text fx:id="endText" layoutX="231.0" layoutY="490.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="1.0" />
+      <Text fx:id="startText" layoutX="231.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" />
    </children>
 </AnchorPane>
