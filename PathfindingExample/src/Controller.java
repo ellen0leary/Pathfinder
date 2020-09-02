@@ -1,8 +1,10 @@
 /**
- * Controlls the
+ * Main controller
+ *
  * @Author Ellen O'Leary
  * @Version 1.0
  */
+
 import CustomClasses.*;
 
 import javafx.scene.control.TextField;
@@ -31,15 +33,15 @@ public class Controller {
      */
     public void initialize() {
         for (int i = 0; i < rows; i++) {
-            HBox hbox = new HBox();
+            HBox hbox = new HBox(); //draws a new hbox for each rows
             for (int j = 0; j < columns; j++) {
-                int distance = rand.nextInt(10);
-                Tile rect = new Tile(i, j, distance);
-                hbox.getChildren().add(rect);
+                int distance = rand.nextInt(10); //creates new distance
+                Tile rect = new Tile(i, j, distance); //creates a new tile
+                hbox.getChildren().add(rect); //adds tile to hbox
                 array[i][j] = new GraphNode<>(rect);
                 dijkstraArray[i][j] = new GraphNodeAL2<>(rect);
             }
-            vbox1.getChildren().add(hbox);
+            vbox1.getChildren().add(hbox);//adds the hbox to vbox
         }
     }
 
@@ -50,23 +52,28 @@ public class Controller {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 GraphNode<Tile> tile = array[i][j];
-                tile.adjList.clear();
+                tile.adjList.clear(); //clears the adjList just in case it already connected
+                GraphNodeAL2<Tile> dijkstraTile = dijkstraArray[i][j];
+                dijkstraTile.adjList.clear();
             }
         }
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 GraphNode<Tile> current = array[i][j];
-                if (i + 1 < rows) {
+                if (i + 1 < rows) { //if there is a tile to right
                     GraphNode<Tile> left = array[i + 1][j];
-                    if (current.data.getValue() && left.data.getValue())
-                        array[i][j].connectToNodeUndirected(array[i + 1][j]);
+                    if (current.data.getValue() && left.data.getValue()) {//if they're both paths
+                        array[i][j].connectToNodeUndirected(array[i + 1][j]); //connect current node to right node
+                        dijkstraArray[i][j].connectToNodeUndirected(dijkstraArray[i + 1][j], dijkstraArray[i][j].data.getDistance());
+                    }
                 }
-                if (j + 1 < columns) {
+                if (j + 1 < columns) { //if there is a tile below
                     GraphNode<Tile> down = array[i][j + 1];
-                    if (current.data.getValue() && down.data.getValue())
-                        array[i][j].connectToNodeUndirected(array[i][j + 1]);
+                    if (current.data.getValue() && down.data.getValue()) { //if they're both paths
+                        array[i][j].connectToNodeUndirected(array[i][j + 1]); //connect current node to the node below
+                        dijkstraArray[i][j].connectToNodeUndirected(dijkstraArray[i][j + 1], dijkstraArray[i][j].data.getDistance());
+                    }
                 }
-
             }
         }
     }
@@ -74,29 +81,29 @@ public class Controller {
     /**
      * Checks if the points are available and sets the points
      */
-    private void findPoints(){
-        int x1 = Integer.parseInt(startXPoint.getText());
-        if(x1>12) startText.setText("The x value is not within range (has to be less than 12)");
-        else if(x1<0) startText.setText("The x value is less than zero");
+    private void findPoints() {
+        int x1 = Integer.parseInt(startXPoint.getText()); //get number for start x point
+        if (x1 > columns) startText.setText("The x value is not within range (has to be less than 12)");
+        else if (x1 < 0) startText.setText("The x value is less than zero");
         else startText.setText(" ");
 
-        int x2 = Integer.parseInt(endXPoint.getText());
-        if(x2>12) startText.setText("The x value is not within range (has to be less than 12)");
-        else if(x2<0) startText.setText("The x value is less than zero");
+        int x2 = Integer.parseInt(endXPoint.getText()); //get number for destination x point
+        if (x2 > columns) startText.setText("The x value is not within range (has to be less than 12)");
+        else if (x2 < 0) startText.setText("The x value is less than zero");
         else startText.setText(" ");
 
-        int y1 = Integer.parseInt(startYPoint.getText());
-        if(y1>10) startText.setText("The x value is not within range (has to be less than 10)");
-        else if(y1<0) startText.setText("The x value is less than zero");
+        int y1 = Integer.parseInt(startYPoint.getText()); //get number for start y point
+        if (y1 > rows) startText.setText("The x value is not within range (has to be less than 10)");
+        else if (y1 < 0) startText.setText("The x value is less than zero");
         else startText.setText(" ");
 
-        int y2 = Integer.parseInt(endYPoint.getText());
-        if(y2>10) startText.setText("The x value is not within range (has to be less than 10)");
-        else if(y2<0) startText.setText("The x value is less than zero");
+        int y2 = Integer.parseInt(endYPoint.getText()); //get number for destination y point
+        if (y2 > rows) startText.setText("The x value is not within range (has to be less than 10)");
+        else if (y2 < 0) startText.setText("The x value is less than zero");
         else startText.setText(" ");
 
-        point1 = array[x1][y1];
-        point2 = array[x2][y2];
+        point1 = array[x1][y1]; //start point
+        point2 = array[x2][y2]; //destination point
         System.out.println(point1.data.toString() + " - " + point1.adjList.size());
         System.out.println(point2.data.toString() + " - " + point2.adjList.size());
     }
@@ -121,12 +128,12 @@ public class Controller {
             }
         }
         System.out.println("-------------------");
-        point1.data.setStartTile();
-        point2.data.setFinishTile();
+        point1.data.setStartTile(); //set start tile to correct color
+        point2.data.setFinishTile(); //set destination tile to correct color
     }
 
     /**
-     *
+     * Gets the depth first search path
      */
     public void dfs() {
         connectRectangles();
@@ -140,7 +147,6 @@ public class Controller {
                         if (GraphNodeList.get(i).data.toString().equals(array[k][j].data.toString())) {
                             GraphNode<Tile> point = array[k][j];
                             point.data.setDFSTransverseTile();
-                            break;
                         }
                     }
                 }
@@ -149,12 +155,15 @@ public class Controller {
             System.out.println("There is no nodes available");
         }
         System.out.println("-------------------");
-        point1.data.setStartTile();
-        point2.data.setFinishTile();
+        point1.data.setStartTile(); //set start tile to correct color
+        point2.data.setFinishTile(); //set destination tile to correct color
     }
 
+    /**
+     * gets the dijkstra path
+     */
     public void dijkstra() {
-        connectDijkstraRectangles();
+        connectRectangles();
         int x1 = Integer.parseInt(startXPoint.getText());
         int x2 = Integer.parseInt(endXPoint.getText());
         int y1 = Integer.parseInt(startYPoint.getText());
@@ -165,7 +174,7 @@ public class Controller {
         System.out.println(point1.data.toString() + " - " + point1.adjList.size());
         System.out.println(point2.data.toString() + " - " + point2.adjList.size());
         CostedPath GraphNodeList = CostedPath.findCheapestPathDijkstra(point1, point2.data);
-        for(GraphNodeAL2<?> n : GraphNodeList.pathList) {
+        for (GraphNodeAL2<?> n : GraphNodeList.pathList) {
             System.out.println(n.data);
             for (int j = 0; j < columns; j++) {
                 for (int k = 0; k < rows; k++) {
@@ -177,36 +186,9 @@ public class Controller {
                 }
             }
         }
-        point1.data.setStartTile();
-        point2.data.setFinishTile();
+        point1.data.setStartTile(); //set start tile to correct color
+        point2.data.setFinishTile(); //set destination tile to correct color
     }
-
-    private void connectDijkstraRectangles() {
-        giveTileValues();
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                GraphNodeAL2<Tile> tile = dijkstraArray[i][j];
-                tile.adjList.clear();
-            }
-        }
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                GraphNodeAL2<Tile> current = dijkstraArray[i][j];
-                if (i + 1 < rows) {
-                    GraphNodeAL2<Tile> left = dijkstraArray[i + 1][j];
-                    if (current.data.getValue() && left.data.getValue())
-                        dijkstraArray[i][j].connectToNodeUndirected(dijkstraArray[i + 1][j], current.data.getDistance());
-                }
-                if (j + 1 < columns) {
-                    GraphNode<Tile> down = array[i][j + 1];
-                    if (current.data.getValue() && down.data.getValue())
-                        dijkstraArray[i][j].connectToNodeUndirected(dijkstraArray[i][j + 1], current.data.getDistance());
-                }
-            }
-        }
-    }
-
-    //public void aStar() { }
 
     /**
      * creates a random amounts walls
@@ -218,6 +200,8 @@ public class Controller {
             int y = rand.nextInt(columns - 1);
             GraphNode<Tile> tile = array[x][y];
             tile.data.setWallTile();
+            GraphNodeAL2<Tile> dijkstraTile = dijkstraArray[x][y];
+            dijkstraTile.data.setWallTile();
         }
     }
 
@@ -229,12 +213,16 @@ public class Controller {
             for (int j = 0; j < columns; j++) {
                 GraphNode<Tile> tile = array[i][j];
                 tile.data.setBlankTile();
+
+                GraphNodeAL2<Tile> dijkstraTile = dijkstraArray[i][j];
+                dijkstraTile.data.setBlankTile();
             }
         }
     }
 
     /**
      * calls the method clear followed by the method walls
+     * to remove and redraw walls
      */
     public void resetWalls() {
         clear();
@@ -245,8 +233,8 @@ public class Controller {
      * Gives tiles values
      */
     public void giveTileValues() {
-        for(int i=0; i<rows; i++){
-            for(int j=0;j<columns; j++){
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
                 int distance = rand.nextInt(10);
 
                 GraphNodeAL2<Tile> tile = dijkstraArray[i][j];
