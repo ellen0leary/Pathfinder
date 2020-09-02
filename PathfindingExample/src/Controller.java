@@ -1,6 +1,5 @@
 /**
  * Main controller
- *
  * @Author Ellen O'Leary
  * @Version 1.0
  */
@@ -229,17 +228,5 @@ public class Controller {
         walls();
     }
 
-    /**
-     * Gives tiles values
-     */
-    public void giveTileValues() {
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                int distance = rand.nextInt(10);
 
-                GraphNodeAL2<Tile> tile = dijkstraArray[i][j];
-                tile.data.setDistance(distance);
-            }
-        }
-    }
 }
